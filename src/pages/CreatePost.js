@@ -19,9 +19,17 @@ function CreatePost() {
 
     const onSubmit = (data) =>
     {
-        axios.get("http://localhost:3001/posts",data).then((response)=>
+        axios.get("http://localhost:3001/posts",data,{headers:{
+          accessToken:sessionStorage.getItem('accesstoken')
+        }}).then((response)=>
         {
-            console.log("it is working");
+           if(response.data.error)
+           {
+              alert(response.data.error);
+           }else
+           {
+            console.log('working');
+           }
         }); 
     }
 
@@ -41,8 +49,7 @@ function CreatePost() {
                 <label>Username</label>
                 <ErrorMessage name="username" />
                 <Field id="inputCreatePost" name="username" placeholder="Enter Title" />
-
-
+                
                 <button type="submit">Create Posts</button>
 
 
